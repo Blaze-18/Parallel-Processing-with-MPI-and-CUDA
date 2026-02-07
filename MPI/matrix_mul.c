@@ -7,7 +7,7 @@
 
 // Compile: mpicc file_name.c -o out
 // Run: mpirun -n <No. of Process> ./out <No. of Matrices> <Rows In A> <Cols in A or Rows in B> <Cols in B>
-// Example RUN: mpirun -n 5 100 3 3 3
+// Example RUN: mpirun -n ./out 5 100 3 3 3
 
 void print_matrix(int rows, int cols, long long matrix[rows][cols]){
   //printf matrix
