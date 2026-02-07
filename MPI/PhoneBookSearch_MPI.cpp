@@ -5,7 +5,7 @@ using namespace std;
 // TO RUN THIS CODE: 
 // Compile : mpic++ file_name.cpp -o out
 // RUN: mpirun -n <No. of process> <text_file_name> <Search String>
-// Example: mpirun -n 5 phonebook1.txt ANTU
+// Example: mpirun -n 5 ./out phonebook1.txt ANTU
 
 
 // Function to send a large string over MPI
