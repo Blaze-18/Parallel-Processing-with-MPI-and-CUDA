@@ -10,8 +10,14 @@
 // Example RUN: mpirun -n 5 ./out 100 3 3 3
 
 void print_matrix(int rows, int cols, long long matrix[rows][cols]){
-  //printf matrix
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++){
+            printf("%3lld ", matrix[i][j]);
+        }
+        printf("\n");
+    }
 }
+
 
 // Function to store the First Matrix of A,B and C = AxB into output file
 void save_matrix(const char* filename, int rows, int cols, long long matrix[rows][cols]){
@@ -151,6 +157,18 @@ int main(int argc, char **argv){
         save_matrix("A_0.txt", rows_A, cols_A, A[0]);
         save_matrix("B_0.txt", cols_A, cols_B, B[0]);
         save_matrix("C_0.txt", rows_A, cols_B, C[0]);
+
+      
+      // Print in terminal  
+        printf("\nMatrix A[0]:\n");
+        print_matrix(rows_A, cols_A, A[0]);
+        
+        printf("\nMatrix B[0]:\n");
+        print_matrix(cols_A, cols_B, B[0]);
+        
+        printf("\nMatrix C[0] = A[0] x B[0]:\n");
+        print_matrix(rows_A, cols_B, C[0]);
+
       
     }
     
