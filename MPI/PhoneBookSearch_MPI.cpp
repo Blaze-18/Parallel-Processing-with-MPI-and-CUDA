@@ -79,6 +79,7 @@ int main(int argc, char **argv) {
     }
 
     string search_term = argv[argc - 1];
+    replace(search_term.begin(), search_term.end(), '_', ' '); // Handling FirstName_MiddleName_LastName type input 
     double start_time, end_time;
     
     // MUST WRITE ON YOUR OWN ------------------ Start
