@@ -1,0 +1,5 @@
+this is the text file for question 1
+hello world hello mpi hello parallel world mpi
+hello from the other side of the programming world
+this is a complete text file containing different strings to search from
+do not worry about the complexity of code rather we need to understand the basics and do simple code
