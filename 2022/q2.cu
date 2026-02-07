@@ -1,4 +1,6 @@
 
+%%writefile search_phonebook.cu
+
 /*
     Question: Consider a phonebook is given as a text file and a person name P. 
     Write a program using CUDA to search for a person P (given as a string) in the phonebook. 
@@ -23,8 +25,6 @@
         !time ./search_phonebook phonebook.txt SHAHRIAR 256
 */
 
-
-%%writefile search_phonebook.cu
 
 // STEP 0 -------------------- Include libraries & definitions
 #include <bits/stdc++.h>
