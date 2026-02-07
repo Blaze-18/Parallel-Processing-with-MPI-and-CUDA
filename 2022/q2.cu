@@ -14,7 +14,7 @@
     2. Change runtime to t4 GPU
     3. Upload text file to the sample data folder
     4. In new Cell ---
-        Compile: nvcc -arch=sm_75 q2.cu -o search_phonebook
+        Compile: nvcc -arch=sm_75 cuda_file_name.cu -o search_phonebook
         Run Format: !time ./search_phonebook <phonebook.txt> <Person_Name> <threads_per_block>
         Example runs:
         With 128 threads
@@ -22,6 +22,7 @@
         with 256 threads
         !time ./search_phonebook phonebook.txt SHAHRIAR 256
 */
+
 
 %%writefile search_phonebook.cu
 
@@ -117,17 +118,23 @@ int main(int argc, char* argv[]) {
     // STEP 1 -------------------- Read command-line arguments
     if (argc != 4) {
         cerr << "Usage: " << argv[0]
-             << " <phonebook.txt> <search_string> <threads_per_block>\n";
+            << " <phonebook.txt> <search_string> <threads_per_block>\n";
         return 1;
     }
 
-    string file_name = argv[1];
+    // Base path where phonebook exists in Colab
+    string base_path = "/content/sample_data/";
+
+    // Final full path to phonebook file
+    string file_name = base_path + string(argv[1]);
+
+    cout << "file path: " << file_name << endl;
+
     string search_string = argv[2];
     int threads_per_block = atoi(argv[3]);
 
-    // Replace '_' with space in search string
+    // Replace '_' with space
     replace(search_string.begin(), search_string.end(), '_', ' ');
-
 
 
     // STEP 2 -------------------- Load phonebook
