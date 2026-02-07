@@ -10,7 +10,7 @@ using namespace std;
 // Example: !time ./matrix 128 200 3 3 3 (Shows output in colab cell)
 // Example: !time ./matrix 128 200 3 3 3 > output128.txt  (Shows output in a text file named output128.txt)
 
-// Step 8 – Perform matrix multiplication in GPU threads
+// Step 8-------– Perform matrix multiplication in GPU threads
 // This function will run in GPU  (Function for performing matrix multiplication on the GPU)
 __global__ void matrixMul(float *A, float *B, float *R, int M, int N, int P, int batchOffset) {
     int k = threadIdx.x + batchOffset; // Set the thread index using batch offset
@@ -34,7 +34,7 @@ __global__ void matrixMul(float *A, float *B, float *R, int M, int N, int P, int
     }
 }
 
-// Step 10 – Print first matrices and result (helper function)
+// Step 10--------– Print first matrices and result (helper function)
 void printMatrix(float *A, int M, int N) {
     for(int i = 0; i < M; i++) {
         for(int j = 0; j < N; j++) {
@@ -45,7 +45,7 @@ void printMatrix(float *A, int M, int N) {
 }
 
 int main(int argc, char* argv[]) {
-    // Step 1 – Read command-line inputs
+    // Step 1 ---------– Read command-line inputs
     // Taking the inputs from command line and making them integers
     int threads = atoi(argv[1]); // Number of threads
     int K = atoi(argv[2]); // Number of Matrices
@@ -53,19 +53,19 @@ int main(int argc, char* argv[]) {
     int N = atoi(argv[4]); // Cols of A or Rows in B
     int P = atoi(argv[5]); // Cols of B
 
-    // Step 2 – Compute total memory sizes
+    // Step 2 ----------– Compute total memory sizes
     // Calculating size of each matrix including the result
     int size_of_a = K * M * N;
     int size_of_b = K * N * P;
     int size_of_r = K * M * P;
     
-    // Step 3 – Allocate memory on CPU
+    // Step 3 ------------– Allocate memory on CPU
     // Allocating memory in CPU for each matrix (Format is GPU understandable)
     float *h_A = (float*)malloc(size_of_a * sizeof(float));
     float *h_B = (float*)malloc(size_of_b * sizeof(float));
     float *h_R = (float*)malloc(size_of_r * sizeof(float));
     
-    // Step 4 – Initialize matrices with random values
+    // Step 4 ----------------– Initialize matrices with random values
     // Intializing the matrices in a flattened format [A000, A001, A002 ......, B000, B001, B002....]
     for(int i = 0; i < size_of_a; i++) {
         h_A[i] = rand() % 10;
@@ -74,12 +74,12 @@ int main(int argc, char* argv[]) {
         h_B[i] = rand() % 10;
     }
     
-    // Step 5 – Allocate memory on GPU
+    // Step 5 ---------------– Allocate memory on GPU
     // Allocating memory for GPU to copy the Initialized array to GPU (Sending matrix to the GPU)
     float *d_A;
     cudaMalloc(&d_A, size_of_a * sizeof(float)); // Allocating memory for A matrix in GPU
     
-    // Step 6 – Copy matrices from CPU → GPU
+    // Step 6 ---------------– Copy matrices from CPU → GPU
     cudaMemcpy(d_A, h_A, size_of_a * sizeof(float), cudaMemcpyHostToDevice); // Copying A matrix from CPU to GPU
 
     float *d_B;
@@ -90,7 +90,7 @@ int main(int argc, char* argv[]) {
     cudaMalloc(&d_R, size_of_r * sizeof(float)); // Allocating memory for result matrix in GPU
     cudaMemset(d_R, 0, size_of_r * sizeof(float)); // Initialize result matrix to zeros
 
-    // Step 7 – Launch CUDA kernel in batches
+    // Step 7 ----------------– Launch CUDA kernel in batches
     // CODE FOR GPU execution is here (MUST BE DONE ON YOUR OWN)
     int remainingMatrices = K;
     int batchOffset = 0;
@@ -104,11 +104,11 @@ int main(int argc, char* argv[]) {
         batchOffset += currentBatchSize;
     }
     
-    // Step 9 – Copy result from GPU → CPU
+    // Step 9 -------------------– Copy result from GPU → CPU
     // Send the Results back to the CPU for showing it to the user
     cudaMemcpy(h_R, d_R, size_of_r * sizeof(float), cudaMemcpyDeviceToHost);
     
-    // Step 10 – Print first matrices and result
+    // Step 10 --------------------– Print first matrices and result
     // Showing output
     cout<<"Matrix A[0]:"<<endl;
     printMatrix(h_A, M, N);
@@ -117,7 +117,7 @@ int main(int argc, char* argv[]) {
     cout<<"Matrix R[0]:"<<endl;
     printMatrix(h_R, M, P);
     
-    // Step 11 – Free GPU and CPU memory
+    // Step 11 -----------------– Free GPU and CPU memory
     cudaFree(d_A);
     cudaFree(d_B);
     cudaFree(d_R);
