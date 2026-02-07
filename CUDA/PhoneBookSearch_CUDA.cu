@@ -218,3 +218,12 @@ int main(int argc, char* argv[]) {
 
     return 0;   // Program finished
 }
+// TO run this file in colab
+// First execute this cell
+// Run the following commands in new cells
+// Compile: !nvcc -arch=sm_75 search_phonebook.cu -o out
+// RUN: !time ./out <Search_String> <NO. of Threads per block>
+// Example Run: !time ./out ANTU 128
+// Example Run: !time ./out ANTU_RANI 256
+// Example RUN: !time ./out SHAHRIAR 128 > output.txt
+// This saves the output/results in output.txt file
